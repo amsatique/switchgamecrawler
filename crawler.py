@@ -39,9 +39,9 @@ def extract(row):
     date = date.strftime("%Y%m%d%H%M")
     return name, region, date, link
 
-print "Bot ready to share happyness"
+print "[READY] Bot ready to share happyness"
 while True:
-    curDate = datetime.now().strftime("%Y%m%d%H%M")
+    curDate = int(datetime.now().strftime("%Y%m%d%H%M")) + 100
     html = urlopen('https://3ds-paradise.com/list.php?console=switch').read()
     soup = BeautifulSoup.BeautifulSoup(html, "html.parser")
     iso=soup.find('tbody')
@@ -52,5 +52,6 @@ while True:
         if int(delta) < int(delay):
             print data[0]
             bot.sendMessage(channel_id, data[0] + "-" + data[1] + "\n"+  data[3] + "\n")
-    print "[" + curDate + "] Send ok"
+    print "[ " + str(curDate) + " ] Send ok"
+    print "Waiting for : " + str(int(delay) * 60 ) + " seconds"
     time.sleep( int(delay) * 60 )
