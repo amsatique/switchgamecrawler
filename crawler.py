@@ -49,7 +49,7 @@ while True:
     for row in rows:
         data = extract(row)
         delta = int(curDate) - int(data[2])
-        if int(delta) < int(delay):
+        if int(delta) < int(delay) and  int(delta) >= 0:
             print data[0]
             bot.sendMessage(channel_id, data[0] + "-" + data[1] + "\n"+  data[3] + "\n")
     print "[ " + str(curDate) + " ] Send ok"
