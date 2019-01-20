@@ -25,6 +25,7 @@ if "DELAY" not in os.environ:
 else:
     delay = os.environ['DELAY']
 
+cdn_url = "https://cdn01.nintendo-europe.com/media/images/11_square_images/games_18/nintendo_switch_download_software/SQ_NSwitchDS_"
 bot = telepot.Bot(telegram_token)
 
 def extract(row):
@@ -39,6 +40,16 @@ def extract(row):
     date = date.strftime("%Y%m%d%H%M")
     return name, region, date, link
 
+def get_img(name):
+    slug = ""
+    regexp = r'[-A-Za-z0-9]+'
+    list = re.findall(regexp, name)
+    for i in list:
+        upper = i.capitalize()
+        slug += upper
+    url = cdn_url + slug + "_image500w.jpg"
+    return url
+
 print "[READY] Bot ready to share happyness"
 while True:
     curDate = int(datetime.now().strftime("%Y%m%d%H%M")) + 100
@@ -50,8 +61,9 @@ while True:
         data = extract(row)
         delta = int(curDate) - int(data[2])
         if int(delta) < int(delay) and  int(delta) >= 0:
-            print data[0]
+            url = get_img(data[0])
             bot.sendMessage(channel_id, data[0] + "-" + data[1] + "\n"+  data[3] + "\n")
+            bot.sendPhoto(channel_id, url)
     print "[ " + str(curDate) + " ] Send ok"
     print "Waiting for : " + str(int(delay) * 60 ) + " seconds"
     time.sleep( int(delay) * 60 )
