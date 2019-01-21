@@ -50,7 +50,7 @@ def get_img(name):
     url = cdn_url + slug + "_image500w.jpg"
     return url
 
-print "[READY] Bot ready to share happyness"
+print "[READY] Bot ready to share happiness"
 while True:
     curDate = int(datetime.now().strftime("%Y%m%d%H%M")) + 100
     html = urlopen('https://3ds-paradise.com/list.php?console=switch').read()
@@ -63,7 +63,10 @@ while True:
         if int(delta) < int(delay) and  int(delta) >= 0:
             url = get_img(data[0])
             bot.sendMessage(channel_id, data[0] + "-" + data[1] + "\n"+  data[3] + "\n")
-            bot.sendPhoto(channel_id, url)
+            try:
+                bot.sendPhoto(channel_id, url)
+            except:
+                print "Cannot find img"
     print "[ " + str(curDate) + " ] Send ok"
     print "Waiting for : " + str(int(delay) * 60 ) + " seconds"
     time.sleep( int(delay) * 60 )
