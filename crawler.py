@@ -62,7 +62,7 @@ while True:
         delta = int(curDate) - int(data[2])
         if int(delta) < int(delay) and  int(delta) >= 0:
             url = get_img(data[0])
-            bot.sendMessage(channel_id, data[0] + "-" + data[1] + "\n"+  data[3] + "\n")
+            bot.sendMessage(channel_id, str(data[0]) + "-" + str(data[1]) + "\n"+ str(data[3]) + "\n")
             try:
                 bot.sendPhoto(channel_id, url)
             except:
